@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Nails Logic — Glossy Glam Nail Studio</title>
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg1: linear-gradient(135deg,#ffeef6 0%, #fff7ee 40%, #fff0f8 100%);
+    --gloss: rgba(255,255,255,0.6);
+    --accent-pink:#ff3c8f;
+    --accent-rose:#ff6fa3;
+    --gold:#d4af37;
+    --card:#ffffff;
+    --muted:#6b415a;
+    --shadow: 0 10px 30px rgba(0,0,0,0.12);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg1);
+    color:#2a1a2f;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.45;
+  }
+
+  /* animated soft glitter overlay */
+  .glitter {
+    position:fixed; inset:0; pointer-events:none; z-index:2;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity:0.45;
+    mix-blend-mode: screen;
+    animation: shimmer 6s linear infinite;
+  }
+  @keyframes shimmer {
+    0%{ transform: translateY(0) }
+    50%{ transform: translateY(-20px) }
+    100%{ transform: translateY(0) }
+  }
+
+  /* Header */
+  header{
+    position:relative;
+    padding:22px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    z-index:10;
+    border-bottom:1px solid rgba(0,0,0,0.04);
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+    backdrop-filter: blur(6px);
+  }
+  .brand{
+    display:flex; gap:14px; align-items:center;
+  }
+  .logo {
+    width:56px; height:56px; border-radius:12px;
+    background: linear-gradient(135deg,var(--accent-rose),var(--accent-pink));
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:800; font-size:20px; box-shadow: 0 6px 18px rgba(255,60,143,0.18);
+  }
+  .brand h1{ font-size:20px; margin:0; letter-spacing:0.6px; color:#2b1026; font-weight:800;}
+  .tag{ font-size:12px; color:var(--muted); margin-top:3px; font-weight:500; opacity:0.9; }
+
+  /* WhatsApp buttons group */
+  .whatsapp-group{ display:flex; gap:10px; align-items:center; }
+  .wa-btn {
+    display:inline-block; background:transparent; border:1px solid rgba(255,60,143,0.14);
+    color:#2b1026; padding:8px 12px; border-radius:10px; font-weight:700; font-size:13px;
+    text-decoration:none; box-shadow: var(--shadow);
+  }
+  .wa-btn.primary{ background: linear-gradient(90deg,var(--accent-pink),var(--accent-rose)); color:white; border:none; box-shadow: 0 8px 30px rgba(255,60,143,0.2); }
+
+  /* Hero */
+  .hero{
+    padding:42px 28px; display:flex; gap:32px; align-items:center; justify-content:space-between;
+    max-width:1200px; margin:18px auto; position:relative;
+  }
+  .hero-left{ flex:1; }
+  .hero h2{ font-size:34px; margin:0 0 12px; color:#3a0b27; letter-spacing:0.3px; }
+  .hero p{ color:#5a354a; font-size:16px; margin:0 0 18px; max-width:680px; }
+  .hero .cta-row{ display:flex; gap:12px; margin-top:6px; }
+  .primary-cta{
+    padding:12px 18px; border-radius:999px; background:linear-gradient(90deg,var(--accent-pink),var(--accent-rose)); color:white; border:none; font-weight:800; cursor:pointer;
+    box-shadow: 0 12px 40px rgba(255,60,143,0.16);
+  }
+  .secondary-cta{ padding:10px 16px; border-radius:12px; background:#fff; border:1px solid rgba(255,60,143,0.08); cursor:pointer; font-weight:700; }
+
+  /* Hero right - sample glossy product */
+  .hero-right{ width:320px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,250,250,0.6)); border-radius:18px; padding:18px; box-shadow:var(--shadow); text-align:center; }
+  .hero-right .big{ width:100%; height:220px; border-radius:12px; background: linear-gradient(135deg,#fff,#ffeef8); display:flex; align-items:center; justify-content:center; font-size:14px; color: #8b4d6c; border:1px solid rgba(0,0,0,0.03); }
+  .hero-right .meta{ margin-top:12px; font-weight:700; color:#6b2d4e; }
+
+  /* Sections base */
+  .section{ max-width:1200px; margin:28px auto; padding:28px; border-radius:14px; background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,250,250,0.65)); box-shadow: var(--shadow); }
+  .section h3{ margin:0 0 14px; color:#3a0b27; font-size:20px; }
+  .grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+
+  /* Gallery cards */
+  .card{
+    background:var(--card); border-radius:12px; overflow:hidden; box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+  .card img{ width:100%; height:180px; object-fit:cover; display:block; }
+  .card .cbody{ padding:12px; }
+  .card .ctitle{ font-weight:800; color:#3b1228; }
+  .card .csub{ color: #7a5070; font-size:13px; margin-top:6px; }
+
+  /* Price table */
+  table.price {
+    width:100%; border-collapse:collapse; font-size:14px; margin-top:8px;
+  }
+  table.price th, table.price td { padding:10px 12px; border-bottom:1px dashed rgba(0,0,0,0.06); text-align:left; }
+  table.price th { background: linear-gradient(90deg, rgba(255,240,245,0.8), rgba(255,250,240,0.8)); color:#4a2033; font-weight:800; }
+
+  /* forms */
+  form{ display:block; margin-top:10px;}
+  .field{ margin-bottom:10px; }
+  label{ display:block; font-weight:700; color:#5b2e47; margin-bottom:6px; font-size:13px; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="time"], select, textarea, input[type="number"]{
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(90,50,70,0.08); font-size:14px; background:rgba(255,255,255,0.9);
+  }
+  .two-col{ display:flex; gap:12px; }
+  .two-col .col{ flex:1; }
+
+  .btn{ background: linear-gradient(90deg,var(--accent-pink),var(--accent-rose)); border:none; color:white; padding:11px 14px; font-weight:800; border-radius:10px; cursor:pointer; }
+  .btn.ghost{ background:#fff; color:#5a354a; border:1px solid rgba(90,50,70,0.06) }
+
+  .note{ font-size:13px; color:#6b415a; margin-top:8px; }
+
+  /* offers / badges */
+  .offers-grid{ display:flex; gap:12px; flex-wrap:wrap; }
+  .offer-pill{ background: linear-gradient(90deg,#fff5fb,#fff9f2); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,60,143,0.08); font-weight:700; color:#7a2f54; }
+
+  /* comparison */
+  .compare-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .compare-box{ background:linear-gradient(180deg,#fff,#fff6f7); padding:12px; border-radius:10px; border:1px solid rgba(0,0,0,0.04); }
+
+  /* reviews */
+  .reviews p{ font-style:italic; color:#57394e; }
+
+  /* footer */
+  footer.main{ margin-top:22px; padding:18px; text-align:center; color:#5a354a; font-weight:600; }
+
+  /* floating WhatsApp group bottom-right */
+  .wa-floating{ position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:8px; z-index:60; }
+  .wa-floating a{ display:inline-block; background:linear-gradient(90deg,var(--accent-pink),var(--accent-rose)); color:white; padding:12px 14px; border-radius:999px; font-weight:800; text-decoration:none; box-shadow: 0 10px 30px rgba(255,60,143,0.18); }
+
+  /* small screens */
+  @media (max-width:880px){
+    .hero{ flex-direction:column; align-items:flex-start; }
+    .hero-right{ width:100%; margin-top:12px; }
+    .compare-grid{ grid-template-columns:1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="glitter" aria-hidden="true"></div>
+
+<!-- floating glossy emoji top-left -->
+<div style="position:fixed; left:16px; top:16px; z-index:70; font-size:28px; animation: floaty 1.6s ease-in-out infinite;">
+  <span style="display:inline-block; padding:8px 10px; border-radius:10px; background:linear-gradient(90deg,#fff8fb,#fff0f7); box-shadow: 0 10px 30px rgba(255,60,143,0.12);">💅</span>
+</div>
+<style>@keyframes floaty {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}</style>
+
+<header>
+  <div class="brand">
+    <div class="logo">NL</div>
+    <div>
+      <h1>Nails Logic</h1>
+      <div class="tag">Glossy Glam Nail Studio • Premium • Vegan Options</div>
+    </div>
+  </div>
+
+  <div class="whatsapp-group">
+    <!-- Replace phone number in href with your number (international format) -->
+    <a class="wa-btn primary" href="https://wa.me/919999999999?text=Hi%20Nails%20Logic%21%20I%20want%20to%20book%20an%20appointment." target="_blank">Book on WhatsApp</a>
+    <a class="wa-btn" href="https://wa.me/919999999999?text=Hello%20there%2C%20I%20want%20to%20chat%20about%20nail%20designs." target="_blank">Chat & Book Now</a>
+    <a class="wa-btn" href="https://wa.me/919999999999?text=Hi%20I%20need%20a%20nail%20appointment%20%28date%20%2F%20time%29." target="_blank">Get Nail Appointment</a>
+    <a class="wa-btn" href="https://wa.me/919999999999?text=I%20want%20custom%20nail%20art%20booking." target="_blank">Nail Art Booking 💅</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <h2>Luxury Glossy Nails • Bridal • Occasion • Everyday Glam</h2>
+    <p>Experience premium nail art using imported products, vegan options and expert artists. Book an appointment or order press-ons & kits for home glam.</p>
+    <div class="cta-row">
+      <button class="primary-cta" onclick="document.getElementById('book-form').scrollIntoView({behavior:'smooth'})">Book Appointment</button>
+      <button class="secondary-cta" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Products</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="big">Glossy Glam Featured Set</div>
+    <div class="meta">Limited Edition • Nude Champagne • Free Consultation</div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section class="section" id="offers">
+  <h3>Special Offers & Promotions</h3>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+    <div class="offer-pill">10% OFF — First Appointment (Code: NAILS10)</div>
+    <div class="offer-pill">15% OFF — Press-on Bundle</div>
+    <div class="offer-pill">Buy 2 Get 1 — Polishes</div>
+    <div class="offer-pill">Free Shipping over ₹2,000</div>
+    <div class="offer-pill">Student Discount — 8% (ID Required)</div>
+    <div class="offer-pill">Festival Combos — Up to 20% OFF</div>
+  </div>
+
+  <div class="note" style="margin-top:12px; color:#7a3e64; font-weight:700;">
+    🚫 <strong>No discounts on premium custom nail art services</strong> (Bridal, Rhinestone Luxury, Hand-Painted Couture) — we use imported professional-grade materials.
+  </div>
+</section>
+
+<!-- SHOP / GALLERY -->
+<section class="section" id="shop">
+  <h3>Gallery — Nail Art & Press-on Collections</h3>
+  <div class="grid">
+    <!-- sample images (replace with your own) -->
+    <div class="card"><img src="https://i.ibb.co/7Y0rZQ2/nail1.jpg" alt="nail"><div class="cbody"><div class="ctitle">Aura Chrome Set</div><div class="csub">Trendy 2025 aura finish</div></div></div>
+    <div class="card"><img src="https://i.ibb.co/V0wna5j/nail2.jpg" alt="nail"><div class="cbody"><div class="ctitle">Velvet Luxe</div><div class="csub">Soft velvet texture</div></div></div>
+    <div class="card"><img src="https://i.ibb.co/G8OI1Go/nail3.jpg" alt="nail"><div class="cbody"><div class="ctitle">Classic French + Gems</div><div class="csub">Timeless bridal look</div></div></div>
+    <div class="card"><img src="https://i.ibb.co/8zBaGTF/nail4.jpg" alt="nail"><div class="cbody"><div class="ctitle">Chrome Mirror</div><div class="csub">Ultra reflective</div></div></div>
+    <div class="card"><img src="https://i.ibb.co/hVY5gkp/nail5.jpg" alt="nail"><div class="cbody"><div class="ctitle">3D Sculpt Floral</div><div class="csub">Hand sculpted petals</div></div></div>
+    <div class="card"><img src="https://i.ibb.co/UjkM9qD/nail6.jpg" alt="nail"><div class="cbody"><div class="ctitle">Jelly Glass</div><div class="csub">See-through glossy look</div></div></div>
+  </div>
+</section>
+
+<!-- PRICE / SERVICES (25 styles) -->
+<section class="section" id="services">
+  <h3>Service Menu — 25 Nail Art Styles (Time & Price)</h3>
+  <table class="price">
+    <thead>
+      <tr><th>Nail Art Style</th><th>Time</th><th>Price (₹)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1. Classic French Tips</td><td>45 min</td><td>799</td></tr>
+      <tr><td>2. Nude Luxury Gloss Finish</td><td>50 min</td><td>899</td></tr>
+      <tr><td>3. Aura Nails (Trend)</td><td>60 min</td><td>1,299</td></tr>
+      <tr><td>4. Velvet Nails</td><td>55 min</td><td>1,199</td></tr>
+      <tr><td>5. Chrome Mirror Nails</td><td>60 min</td><td>1,399</td></tr>
+      <tr><td>6. Cat-Eye Magnetic Nails</td><td>55 min</td><td>1,299</td></tr>
+      <tr><td>7. Baby Boomer Ombre</td><td>65 min</td><td>1,499</td></tr>
+      <tr><td>8. Stamping Art</td><td>40 min</td><td>999</td></tr>
+      <tr><td>9. Stenciling Nail Art</td><td>45 min</td><td>1,099</td></tr>
+      <tr><td>10. 3D Sculpted Flowers</td><td>90 min</td><td>1,999</td></tr>
+      <tr><td>11. Rhinestone Luxury Set</td><td>85 min</td><td>2,499</td></tr>
+      <tr><td>12. Hand-Painted Art</td><td>80 min</td><td>1,799</td></tr>
+      <tr><td>13. Jelly Glass Nails</td><td>55 min</td><td>1,199</td></tr>
+      <tr><td>14. Glitter Ombre Nails</td><td>50 min</td><td>999</td></tr>
+      <tr><td>15. Bridal Swarovski Nails</td><td>120 min</td><td>4,999</td></tr>
+      <tr><td>16. Marble Ink Design</td><td>50 min</td><td>1,099</td></tr>
+      <tr><td>17. Foil & Flake Luxe</td><td>45 min</td><td>1,099</td></tr>
+      <tr><td>18. Minimalist Line Art</td><td>35 min</td><td>799</td></tr>
+      <tr><td>19. French Tip Variation (Colored)</td><td>50 min</td><td>899</td></tr>
+      <tr><td>20. Ombre Fade Pastel</td><td>55 min</td><td>1,199</td></tr>
+      <tr><td>21. Velvet + Rhinestones</td><td>75 min</td><td>2,299</td></tr>
+      <tr><td>22. Chrome + Hand Paint Combo</td><td>80 min</td><td>2,199</td></tr>
+      <tr><td>23. Animal Print Accent</td><td>40 min</td><td>999</td></tr>
+      <tr><td>24. Negative Space Art</td><td>45 min</td><td>1,099</td></tr>
+      <tr><td>25. Express Nail Fix (Quick)</td><td>15 min</td><td>299</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- COMPARISON -->
+<section class="section">
+  <h3>Why Choose Nails Logic vs Others</h3>
+  <div class="compare-grid" style="margin-top:10px;">
+    <div class="compare-box">
+      <strong>Premium Imported Products</strong>
+      <p class="note">Us: Professional brands used — long-lasting & safe.<br>Others: Local low-grade polishes.</p>
+    </div>
+    <div class="compare-box">
+      <strong>Expert Nail Artists</strong>
+      <p class="note">Us: Trained artists with global trends expertise.<br>Others: Inconsistent skill levels.</p>
+    </div>
+    <div class="compare-box">
+      <strong>Vegan & Toxin-free Options</strong>
+      <p class="note">Us: Vegan line available.<br>Others: Limited / none.</p>
+    </div>
+    <div class="compare-box">
+      <strong>Packaging & Shipping</strong>
+      <p class="note">Us: Premium secure packaging, global shipping.<br>Others: Often fragile & slow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPOINTMENT FORM -->
+<section class="section" id="book-form">
+  <h3>Book an Appointment — Appointment Form</h3>
+  <form id="appointment" onsubmit="handleAppointment(event)">
+    <div class="two-col">
+      <div class="col field">
+        <label for="ap_name">Full Name</label>
+        <input id="ap_name" type="text" required placeholder="Your name">
+      </div>
+      <div class="col field">
+        <label for="ap_phone">Phone Number</label>
+        <input id="ap_phone" type="tel" required placeholder="+91 9XXXXXXXXX">
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="col field">
+        <label for="ap_date">Preferred Date</label>
+        <input id="ap_date" type="date" required>
+      </div>
+      <div class="col field">
+        <label for="ap_time">Preferred Time</label>
+        <input id="ap_time" type="time" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="ap_service">Select Service / Nail Art</label>
+      <select id="ap_service" required>
+        <option value="">-- Choose service --</option>
+        <option>Aura Nails</option>
+        <option>Bridal Swarovski</option>
+        <option>Hand-Painted Art</option>
+        <option>Chrome Mirror</option>
+        <option>Velvet Nails</option>
+        <option>3D Sculpted Flowers</option>
+        <option>Express Fix</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label><input id="ap_vegan" type="checkbox"> &nbsp; Request Vegan Products</label>
+    </div>
+
+    <div class="field">
+      <label for="ap_address">Full Address (for home service / shipping)</label>
+      <textarea id="ap_address" rows="2" placeholder="House no, Street, City, Pincode, Country" required></textarea>
+    </div>
+
+    <div class="field">
+      <label for="ap_notes">Additional Notes / Design Reference</label>
+      <textarea id="ap_notes" rows="2" placeholder="E.g. nude-chrome, small rhinestones..."></textarea>
+    </div>
+
+    <button class="btn" type="submit">Submit Appointment Request</button>
+
+    <div id="ap_success" class="note" style="display:none; margin-top:10px; color:green; font-weight:800;">✅ Appointment request submitted. We'll contact you soon to confirm.</div>
+  </form>
+</section>
+
+<!-- ORDER / PURCHASE FORM -->
+<section class="section" id="purchase-form">
+  <h3>Purchase / Order Form — Press-ons, Kits & Polishes</h3>
+  <form id="order" onsubmit="handleOrder(event)">
+    <div class="two-col">
+      <div class="col field">
+        <label for="or_name">Full Name</label>
+        <input id="or_name" type="text" required placeholder="Your name">
+      </div>
+      <div class="col field">
+        <label for="or_phone">Phone Number</label>
+        <input id="or_phone" type="tel" required placeholder="+91 9XXXXXXXXX">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="or_product">Select Product</label>
+      <select id="or_product" required>
+        <option value="">-- Choose product --</option>
+        <option>Press-on Nails Kit (20 pcs) — ₹649</option>
+        <option>Gel Polish Set (Base + Top) — ₹1,299</option>
+        <option>Nail Care Kit (Files, Oil, Tools) — ₹799</option>
+        <option>Vegan Nail Polish — ₹399</option>
+        <option>Rhinestone Pack — ₹499</option>
+      </select>
+    </div>
+
+    <div class="two-col">
+      <div class="col field">
+        <label for="or_qty">Quantity</label>
+        <input id="or_qty" type="number" min="1" value="1" required>
+      </div>
+      <div class="col field">
+        <label for="or_urgency">Delivery Option</label>
+        <select id="or_urgency">
+          <option>Standard Shipping</option>
+          <option>Express Shipping (+₹250)</option>
+          <option>Local Pickup</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="or_address">Shipping Address</label>
+      <textarea id="or_address" rows="2" placeholder="House no, Street, City, Pincode, Country" required></textarea>
+    </div>
+
+    <div class="field">
+      <label for="or_notes">Additional Notes</label>
+      <textarea id="or_notes" rows="2" placeholder="Color preference / urgent delivery"></textarea>
+    </div>
+
+    <button class="btn" type="submit">Place Order</button>
+    <div id="or_success" class="note" style="display:none; margin-top:10px; color:green; font-weight:800;">✅ Order received. We'll contact you to confirm payment & shipping.</div>
+  </form>
+</section>
+
+<!-- SHIPPING -->
+<section class="section">
+  <h3>Worldwide Shipping & Packaging</h3>
+  <p class="note">We ship globally with premium packaging. International delivery 7–14 business days; domestic 2–6 days. All products are packed in eco-friendly cushioned boxes to ensure safe delivery.</p>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews">
+  <h3>What Clients Say</h3>
+  <div class="grid">
+    <div class="card"><div class="cbody"><p>“Brilliant service — my bridal nails were perfect and lasted weeks!” — <strong>Priya S.</strong></p></div></div>
+    <div class="card"><div class="cbody"><p>“Loved the vegan polish range. Highly recommend Nails Logic.” — <strong>Anjali P.</strong></p></div></div>
+    <div class="card"><div class="cbody"><p>“Fast shipping and gorgeous press-ons. Very premium.” — <strong>Meeta K.</strong></p></div></div>
+  </div>
+</section>
+
+<!-- CONTACT / CALLBACK -->
+<section class="section">
+  <h3>Request a Callback</h3>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <input id="cb_name" type="text" placeholder="Your name" style="padding:10px; border-radius:8px; border:1px solid rgba(90,50,70,0.08); flex:1; min-width:180px;">
+    <input id="cb_phone" type="tel" placeholder="+91 9XXXXXXXXX" style="padding:10px; border-radius:8px; border:1px solid rgba(90,50,70,0.08); min-width:180px;">
+    <button class="btn ghost" onclick="requestCallback()">Request Callback</button>
+  </div>
+  <div id="cb_msg" class="note" style="display:none; margin-top:10px; color:green; font-weight:800;"></div>
+</section>
+
+<!-- LAST NOTE -->
+<section class="section">
+  <h3>A Final Note From Nails Logic</h3>
+  <p class="note">Thank you for trusting Nails Logic. We craft each set carefully, using professional imported products and safe techniques. For premium custom designs, please allow extra time — quality takes love & precision.</p>
+</section>
+
+<footer class="main">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div style="display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap;">
+      <div>© 2025 Nails Logic • All Rights Reserved</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a class="wa-btn" href="https://instagram.com" target="_blank" style="background:transparent; color:#6b3b58; border:1px solid rgba(0,0,0,0.04); padding:8px 10px; border-radius:8px; text-decoration:none;">Instagram</a>
+        <a class="wa-btn" href="#" style="background:transparent; color:#6b3b58; border:1px solid rgba(0,0,0,0.04); padding:8px 10px; border-radius:8px; text-decoration:none;">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp buttons (all four as requested) -->
+<div class="wa-floating">
+  <a href="https://wa.me/919999999999?text=Hi%20Nails%20Logic!%20I%20want%20to%20book%20an%20appointment." target="_blank">Book on WhatsApp</a>
+  <a href="https://wa.me/919999999999?text=Hi%20I%20want%20to%20chat%20about%20nail%20designs." target="_blank">Chat & Book Now</a>
+  <a href="https://wa.me/919999999999?text=Hello%20I%20need%20a%20nail%20appointment%20%28date%2Ftime%29." target="_blank">Get Nail Appointment</a>
+  <a href="https://wa.me/919999999999?text=I%20want%20custom%20nail%20art%20booking." target="_blank">Nail Art Booking 💅</a>
+</div>
+
+<script>
+  // Replace phone placeholders (update these to your WhatsApp number, international format, no + sign)
+  const WHATSAPP_NUMBER = '919999999999'; // change to your number
+
+  // Form handlers (no backend) - show success messages & reset
+  function handleAppointment(e){
+    e.preventDefault();
+    const name = document.getElementById('ap_name').value || 'Guest';
+    document.getElementById('ap_success').style.display = 'block';
+    alert('Thanks ' + name + '! Your appointment request is submitted. We will contact you soon.');
+    setTimeout(()=>{ document.getElementById('appointment').reset(); document.getElementById('ap_success').style.display='none'},1600);
+  }
+
+  function handleOrder(e){
+    e.preventDefault();
+    const name = document.getElementById('or_name').value || 'Customer';
+    document.getElementById('or_success').style.display = 'block';
+    alert('Thanks ' + name + '! Your order has been received. We will contact you to confirm payment & shipping.');
+    setTimeout(()=>{ document.getElementById('order').reset(); document.getElementById('or_success').style.display='none'},1600);
+  }
+
+  function requestCallback(){
+    const n = document.getElementById('cb_name').value.trim();
+    const p = document.getElementById('cb_phone').value.trim();
+    if(!p){ document.getElementById('cb_msg').style.display='block'; document.getElementById('cb_msg').textContent='Please enter phone number.'; return; }
+    document.getElementById('cb_msg').style.display='block';
+    document.getElementById('cb_msg').textContent = '✅ Thanks ' + (n||'there') + '! We will call you shortly on ' + p + '.';
+    setTimeout(()=>{ document.getElementById('cb_msg').style.display='none'; document.getElementById('cb_name').value=''; document.getElementById('cb_phone').value=''; },2000);
+  }
+
+  // Update WhatsApp links dynamically so you only change number in one place (optional)
+  (function updateWA(){
+    const waElems = document.querySelectorAll('a[href^="https://wa.me/919999999999"]');
+    waElems.forEach(a=>{
+      const href = a.getAttribute('href');
+      const tail = href.split('9999999999')[1] || href.split('919999999999')[1] || href;
+      a.setAttribute('href', 'https://wa.me/' + WHATSAPP_NUMBER + tail);
+    });
+  })();
+
+</script>
+</body>
+</html>
